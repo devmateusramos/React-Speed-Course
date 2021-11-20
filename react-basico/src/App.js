@@ -37,6 +37,13 @@ class App extends Component {
     });
   };
 
+  removerComentario = (comentario) => {
+    let lista = this.state.comentarios;
+    lista = lista.filter((c) => c !== comentario);
+
+    this.setState({ comentarios: lista });
+  };
+
   digitacaoDoNome = (evento) => {
     const value = evento.target.value;
     this.setState({
@@ -65,6 +72,7 @@ class App extends Component {
             nome={comentario.nome}
             email={comentario.email}
             data={comentario.data}
+            onRemove={this.removerComentario.bind(this, comentario)}
           >
             {comentario.mensagem}
           </Comentario>
@@ -77,6 +85,7 @@ class App extends Component {
               name='nome'
               value={this.state.novoComentario.nome}
               onChange={this.digitacao}
+              required
               placeholder='digite seu nome'
             />
           </div>
@@ -86,6 +95,7 @@ class App extends Component {
               name='email'
               value={this.state.novoComentario.email}
               onChange={this.digitacao}
+              required
               placeholder='digite seu email'
             />
           </div>
@@ -95,6 +105,7 @@ class App extends Component {
               rows='4'
               value={this.state.novoComentario.mensagem}
               onChange={this.digitacao}
+              required
             />
           </div>
           <button type='submit'>Adicionar Comentário</button>
